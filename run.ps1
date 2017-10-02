@@ -1,4 +1,7 @@
 cd source
 ghc Junk
-./Junk
+if ($LastExitCode -eq 0) {
+  ./Junk
+}
+
 cd ..
