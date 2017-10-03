@@ -6,13 +6,33 @@ getHiddenChar = fmap (chr.fromEnum) c_getch
 foreign import ccall unsafe "conio.h getch"
   c_getch :: IO CInt
 
---clear :: IO ()
 clear = system "cls"
+
+data Id = Int
+
+data Resource = Resource {
+  value :: Int
+  max :: Int
+}
+
+data Creature = Creature {
+  id :: Id
+  name :: [Char]
+  health :: Resource
+  energy :: Resource
+}
 
 data Game = Game {
   turn :: Int
-} deriving (Show)
+  creature :: [Creature]
+  player :: Int
+}
 
+create_creature
+create_player = create_creature
+
+new_game = Game 1 [create_player]
+update_game previous =
 game_loop = do
   clear
   putStrLn "The JunkeYarde"
