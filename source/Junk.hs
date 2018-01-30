@@ -8,40 +8,44 @@ foreign import ccall unsafe "conio.h getch"
 
 clear = system "cls"
 
-data Id = Int
+type Id = Int
 
 data Resource = Resource {
-  value :: Int
+  value :: Int,
   max :: Int
 }
 
+createResource value = Resource value value
+
 data Creature = Creature {
-  id :: Id
-  name :: [Char]
-  health :: Resource
+  creatureId :: Id,
+  name :: [Char],
+  health :: Resource,
   energy :: Resource
 }
 
 data Game = Game {
-  turn :: Int
-  creature :: [Creature]
+  turn :: Int,
+  creatures :: [Creature],
   player :: Int
 }
 
-create_creature
-create_player = create_creature
+createPlayer `id = Creature `id "Player" (createResource 10) (createResource 10)
 
-new_game = Game 1 [create_player]
-update_game previous =
-game_loop = do
+newGame nextId =
+  let (player, nextId) = createPlayer nextId
+  in (Game 1 [player] (creatureId player), nextId + 1)
+
+gameLoop game nextId = do
   clear
   putStrLn "The JunkeYarde"
   putStrLn "?"
   command <- c_getch
-  if command == 113
+  if command == 113 -- 'q'
   then putStrLn "Now leaving the JunkeYarde"
-  else game_loop
+  else gameLoop game nextId
 
 main = do
   putStrLn "Welcome to the JunkeYarde"
-  game_loop
+  let (game, nextId) = newGame 1
+  gameLoop game nextId
