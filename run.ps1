@@ -1,7 +1,7 @@
-cd source
-ghc Junk
+cd src
+ghc -outputdir ../bin -o ../bin/junk Main
 if ($LastExitCode -eq 0) {
-  ./Junk
+  ../bin/junk
 }
 
 cd ..
