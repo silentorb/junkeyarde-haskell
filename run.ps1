@@ -1,7 +1,4 @@
-cd src
-ghc -outputdir ../bin -o ../bin/junk Main
+stack build
 if ($LastExitCode -eq 0) {
-  ../bin/junk
+  stack exec --no-system-ghc junk-exe
 }
-
-cd ..

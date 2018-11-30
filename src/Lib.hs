@@ -1,4 +1,5 @@
-{-# LANGUAGE ForeignFunctionInterface #-}
+module Lib where
+
 import Data.Char
 import Foreign.C.Types
 import System.Process
@@ -24,7 +25,7 @@ gameLoop game nextId = do
   then return ()
   else gameLoop (updateGame game command) nextId
 
-main = do
+lib = do
   putStrLn "Welcome to the JunkeYarde"
   let (game, nextId) = newGame 1
   gameLoop game nextId

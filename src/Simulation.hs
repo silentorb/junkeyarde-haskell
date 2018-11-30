@@ -34,8 +34,8 @@ data Attack = Attack {
   amount :: Int
 }
 
-let heroFaction = 0
-let enemyFaction = 1
+heroFaction = 0
+enemyFaction = 1
 
 createPlayer id' = (Character id' "Player" heroFaction (resource 10) (resource 10), id' + 1)
 
