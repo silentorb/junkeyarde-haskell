@@ -1,59 +1,35 @@
 module Simulation where
 
-import Commands
-
-type Id = Int
-
-data Resource = Resource {
-  value :: Int,
-  max :: Int
-}
+import           Commands
+import           Data
+import           GameTypes
 
 resource value = Resource value value
 
-data Character = Character {
-  id' :: Id,
-  name :: [Char],
-  faction :: Id,
-  health :: Resource,
-  energy :: Resource
-}
-
-data Game = Game {
-  turn :: Int,
-  characters :: [Character],
-  playerId :: Id
-}
-
---player :: Game :: Character
---player = filter
-
-data Attack = Attack {
-  attacker :: Id,
-  target :: Id,
-  amount :: Int
-}
-
 heroFaction = 0
+
+enemyFaction :: Id
 enemyFaction = 1
 
-createPlayer id' = (Character id' "Player" heroFaction (resource 10) (resource 10), id' + 1)
+createPlayer id' = Character id' "Player" heroFaction (resource 10) (resource 10)
+
+createEnemy id' = Character id' "Skeleton" enemyFaction (resource 10) (resource 10)
 
 newGame nextId =
-  let (player, nextId) = createPlayer nextId
-  in (Game 1 [player] (id' player), nextId)
+  let player = createPlayer nextId
+   in (Game 1 [createPlayer nextId, createEnemy (nextId + 1)] nextId, nextId + 2)
 
 sumBy accessor = foldl (\acc a -> acc + accessor a) 0
 
-applyAttacksToCharacter :: [Attack] -> Character -> Character
-applyAttacksToCharacter attacks character =
-  let applicableAttacks = filter (\a -> (id' character) == target a) attacks
-  in character {
-    health = (health character) { value = (value (health character)) - sumBy (amount) applicableAttacks }
-  }
+isFaction :: Id -> Character -> Bool
+isFaction id' character = faction character == id'
 
-updateGame :: Game -> UserCommand -> Game
-updateGame game command =
-  game {
-    turn = (turn game) + 1
-  }
+enemies :: Game -> [Character]
+enemies game = filter (isFaction enemyFaction) (characters game)
+
+--applyAttacksToCharacter :: [Attack] -> Character -> Character
+--applyAttacksToCharacter attacks character =
+--  let applicableAttacks = filter (\a -> id' character) == target a attacks
+--   in character {health = (health character) {value = (value (health character)) - sumBy (amount) applicableAttacks}}
+update :: Game -> UserCommand -> Game
+update game command = game {turn = turn game + 1}

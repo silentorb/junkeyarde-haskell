@@ -10,14 +10,14 @@
 #
 # resolver: lts-3.5
 # resolver: nightly-2015-09-21
-# resolver: ghc-7.10.2
+resolver: ghc-8.4.3
 #
 # The location of a snapshot can be provided as a file or url. Stack assumes
 # a snapshot provided as a file might change, whereas a url resource does not.
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver: lts-12.20
+#resolver: lts-12.20
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -38,9 +38,17 @@ packages:
 # using the same syntax as the packages field.
 # (e.g., acme-missiles-0.3)
 extra-deps:
-- aeson-1.3.1.1@sha256:1ab29743b4c4c9be7df57200ed2c8779048adda4cead075944b7b471e93ed4c3
-- containers-0.5.11.0@sha256:28ad7337057442f75bc689315ab4ec7bdf5e6b2c39668f306672cecd82c02798
-- yaml-0.8.32@sha256:691cbf4f6a362df5a76464f42e328c99723f3d525767e3a1e78ee112ab723f7a
+#- aeson-1.3.1.1@sha256:1ab29743b4c4c9be7df57200ed2c8779048adda4cead075944b7b471e93ed4c3
+#- containers-0.5.11.0@sha256:28ad7337057442f75bc689315ab4ec7bdf5e6b2c39668f306672cecd82c02798
+#- yaml-0.8.32@sha256:691cbf4f6a362df5a76464f42e328c99723f3d525767e3a1e78ee112ab723f7a
+#- ghc-paths-0.1.0.9@sha256:ed18df7b53699446dabd66f6e019e5b156820f0301d8dec0d6385f13b797e0ba
+#- network-2.8.0.0@sha256:aae171e6c6028a7791dbe4de5b9d2da398056359e3cc7927465ffa3cdae1aa0b
+#- random-1.1@sha256:7b67624fd76ddf97c206de0801dc7e888097e9d572974be9b9ea6551d76965df
+#- syb-0.7@sha256:9c559edeef6b9eb1362d7e16fbb15e786be871050cf085a46fcead282bb86e89
+- ghc-paths-0.1.0.9@sha256:ed18df7b53699446dabd66f6e019e5b156820f0301d8dec0d6385f13b797e0ba
+- network-2.8.0.0@sha256:aae171e6c6028a7791dbe4de5b9d2da398056359e3cc7927465ffa3cdae1aa0b
+- random-1.1@sha256:7b67624fd76ddf97c206de0801dc7e888097e9d572974be9b9ea6551d76965df
+- syb-0.7@sha256:9c559edeef6b9eb1362d7e16fbb15e786be871050cf085a46fcead282bb86e89
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
