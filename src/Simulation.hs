@@ -43,14 +43,12 @@ newGame nextId =
   let (player, nextId) = createPlayer nextId
   in (Game 1 [player] (id' player), nextId)
 
---sumBy summer = foldl (+ summer) 0
 sumBy accessor = foldl (\acc a -> acc + accessor a) 0
 
 applyAttacksToCharacter :: [Attack] -> Character -> Character
 applyAttacksToCharacter attacks character =
   let applicableAttacks = filter (\a -> (id' character) == target a) attacks
   in character {
---    health = (health character) { value = (value (health character)) - foldl (\acc a -> acc + amount a) 0 applicableAttacks }
     health = (health character) { value = (value (health character)) - sumBy (amount) applicableAttacks }
   }
 

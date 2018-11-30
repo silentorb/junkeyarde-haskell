@@ -2,3 +2,5 @@
 *.cabal
 *~
 .idea
+/out
+junk.iml
